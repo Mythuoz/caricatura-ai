@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Caricatura AI</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+  <h1>Peça sua Caricatura com IA</h1>
+
+  <form id="caricatura-form">
+    <label for="nome">Nome completo:</label><br/>
+    <input type="text" id="nome" name="nome" required /><br/><br/>
+
+    <label for="email">Seu e-mail:</label><br/>
+    <input type="email" id="email" name="email" required /><br/><br/>
+
+    <label for="caracteristicas">O que deseja na caricatura (ex: cor da roupa, tema de formatura...):</label><br/>
+    <textarea id="caracteristicas" name="caracteristicas" rows="4" required></textarea><br/><br/>
+
+    <label for="imagem">Foto (arquivo):</label><br/>
+    <input type="file" id="imagem" name="imagem" accept="image/*" required /><br/><br/>
+
+    <button type="submit">Enviar Pedido</button>
+  </form>
+
+  <p id="mensagem"></p>
+
+  <script>
+    const form = document.getElementById("caricatura-form");
+    const mensagem = document.getElementById("mensagem");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      mensagem.textContent = "Pedido recebido! (Aqui conectaremos com o Firebase)";
+      // Aqui futuramente enviamos para o Firebase ou Make.
+    });
+  </script>
+</body>
+</html>
