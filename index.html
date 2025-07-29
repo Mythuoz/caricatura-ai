@@ -4,36 +4,141 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Caricatura AI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background-color: #f3f3f3;
+    }
+
+    h1 {
+      color: #444;
+    }
+
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: inline-block;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; padding: 20px;">
-  <h1>Peça sua Caricatura com IA</h1>
+<body>
+  <h1>Caricatura AI</h1>
+  <p>Envie sua foto e escolha os detalhes da sua caricatura!</p>
 
-  <form id="caricatura-form">
-    <label for="nome">Nome completo:</label><br/>
-    <input type="text" id="nome" name="nome" required /><br/><br/>
+  <form id="caricatureForm">
+    <input type="text" name="nome" placeholder="Seu nome" required />
+    <input type="email" name="email" placeholder="Seu e-mail" required />
+    
+    <label>Estilo da caricatura:</label>
+    <select name="estilo" required>
+      <option value="formatura">Formatura</option>
+      <option value="super-herói">Super-herói</option>
+      <option value="desenho animado">Desenho animado</option>
+      <option value="profissão">Profissão</option>
+    </select>
 
-    <label for="email">Seu e-mail:</label><br/>
-    <input type="email" id="email" name="email" required /><br/><br/>
+    <label>Foto (JPEG ou PNG):</label>
+    <input type="file" name="foto" accept="image/*" required />
 
-    <label for="caracteristicas">O que deseja na caricatura (ex: cor da roupa, tema de formatura...):</label><br/>
-    <textarea id="caracteristicas" name="caracteristicas" rows="4" required></textarea><br/><br/>
-
-    <label for="imagem">Foto (arquivo):</label><br/>
-    <input type="file" id="imagem" name="imagem" accept="image/*" required /><br/><br/>
+    <label>Detalhes adicionais (opcional):</label>
+    <textarea name="detalhes" placeholder="Ex: Usar toga vermelha, adicionar nome completo, etc."></textarea>
 
     <button type="submit">Enviar Pedido</button>
   </form>
 
   <p id="mensagem"></p>
 
-  <script>
-    const form = document.getElementById("caricatura-form");
-    const mensagem = document.getElementById("mensagem");
+  <!-- Firebase SDKs e inicialização -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
 
-    form.addEventListener("submit", function(e) {
+    const firebaseConfig = {
+      apiKey: "AIzaSyCRRJQDdI1_dbPJcKBUj7lQ9O44Jl4SbhY",
+      authDomain: "caricatura-ai.firebaseapp.com",
+      projectId: "caricatura-ai",
+      storageBucket: "caricatura-ai.appspot.com",
+      messagingSenderId: "1093120274330",
+      appId: "1:1093120274330:web:8bbca07918af6f48c45423",
+      measurementId: "G-H58BSKJV74"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    const form = document.getElementById('caricatureForm');
+    const mensagem = document.getElementById('mensagem');
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      mensagem.textContent = "Pedido recebido! (Aqui conectaremos com o Firebase)";
-      // Aqui futuramente enviamos para o Firebase ou Make.
+      mensagem.textContent = "Enviando...";
+
+      const nome = form.nome.value;
+      const email = form.email.value;
+      const estilo = form.estilo.value;
+      const detalhes = form.detalhes.value;
+      const foto = form.foto.files[0];
+
+      if (!foto) {
+        mensagem.textContent = "Por favor, selecione uma imagem.";
+        return;
+      }
+
+      try {
+        // Upload da imagem
+        const storageRef = ref(storage, `caricaturas/${Date.now()}_${foto.name}`);
+        await uploadBytes(storageRef, foto);
+        const imageURL = await getDownloadURL(storageRef);
+
+        // Salvar os dados no Firestore
+        await addDoc(collection(db, "pedidos"), {
+          nome,
+          email,
+          estilo,
+          detalhes,
+          imageURL,
+          data: new Date()
+        });
+
+        mensagem.textContent = "Pedido enviado com sucesso! Em breve você receberá sua caricatura.";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        mensagem.textContent = "Erro ao enviar pedido. Tente novamente.";
+      }
     });
   </script>
 </body>
