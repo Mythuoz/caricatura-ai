@@ -1,145 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Caricatura AI</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 2rem;
-      background-color: #f3f3f3;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caricatura AI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HERO -->
+    <section class="bg-white py-16 px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Transforme sua foto em uma caricatura incrível com IA</h1>
+      <p class="text-lg mb-8 max-w-2xl mx-auto">Ideal para formaturas, lembranças e presentes personalizados. Simples, rápido e feito com tecnologia de inteligência artificial.</p>
+      <a href="#form" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition">Enviar Foto Agora</a>
+    </section>
 
-    h1 {
-      color: #444;
-    }
+    <!-- COMO FUNCIONA -->
+    <section class="py-16 px-6 bg-gray-100">
+      <h2 class="text-3xl font-bold text-center mb-12">Como Funciona</h2>
+      <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-10 text-center">
+        <div>
+          <div class="text-5xl mb-4">📸</div>
+          <h3 class="text-xl font-semibold mb-2">1. Envie sua foto</h3>
+          <p>Escolha uma foto com boa iluminação e rosto visível.</p>
+        </div>
+        <div>
+          <div class="text-5xl mb-4">🧠</div>
+          <h3 class="text-xl font-semibold mb-2">2. IA cria sua caricatura</h3>
+          <p>Nosso sistema usa inteligência artificial para gerar sua arte exclusiva.</p>
+        </div>
+        <div>
+          <div class="text-5xl mb-4">🎓</div>
+          <h3 class="text-xl font-semibold mb-2">3. Receba sua caricatura</h3>
+          <p>Receba por e-mail em alta qualidade, pronta para usar ou imprimir.</p>
+        </div>
+      </div>
+    </section>
 
-    form {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      display: inline-block;
-      max-width: 500px;
-      width: 100%;
-    }
+    <!-- EXEMPLOS -->
+    <section class="py-16 px-6">
+      <h2 class="text-3xl font-bold text-center mb-12">Exemplos de Caricaturas</h2>
+      <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+        <img src="https://via.placeholder.com/400x400.png?text=Foto+Original" alt="Foto original" class="rounded-xl shadow-md">
+        <img src="https://via.placeholder.com/400x400.png?text=Caricatura" alt="Caricatura gerada" class="rounded-xl shadow-md">
+        <img src="https://via.placeholder.com/400x400.png?text=Caricatura+Formatura" alt="Caricatura formatura" class="rounded-xl shadow-md">
+      </div>
+    </section>
 
-    input, select, textarea {
-      width: 100%;
-      padding: 0.8rem;
-      margin: 0.5rem 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
+    <!-- FORMULÁRIO -->
+    <section id="form" class="bg-white py-16 px-6">
+      <h2 class="text-3xl font-bold text-center mb-8">Envie Sua Foto</h2>
+      <form class="max-w-xl mx-auto bg-gray-50 p-6 rounded-xl shadow">
+        <div class="mb-4">
+          <label class="block text-sm font-semibold mb-2">Nome:</label>
+          <input type="text" class="w-full px-4 py-2 border rounded" placeholder="Seu nome" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-semibold mb-2">Email:</label>
+          <input type="email" class="w-full px-4 py-2 border rounded" placeholder="seu@email.com" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-semibold mb-2">Envie uma foto:</label>
+          <input type="file" accept="image/*" class="w-full">
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Enviar</button>
+      </form>
+    </section>
 
-    button {
-      padding: 0.8rem 2rem;
-      border: none;
-      border-radius: 5px;
-      background-color: #4CAF50;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
-</head>
-<body>
-  <h1>Caricatura AI</h1>
-  <p>Envie sua foto e escolha os detalhes da sua caricatura!</p>
-
-  <form id="caricatureForm">
-    <input type="text" name="nome" placeholder="Seu nome" required />
-    <input type="email" name="email" placeholder="Seu e-mail" required />
-    
-    <label>Estilo da caricatura:</label>
-    <select name="estilo" required>
-      <option value="formatura">Formatura</option>
-      <option value="super-herói">Super-herói</option>
-      <option value="desenho animado">Desenho animado</option>
-      <option value="profissão">Profissão</option>
-    </select>
-
-    <label>Foto (JPEG ou PNG):</label>
-    <input type="file" name="foto" accept="image/*" required />
-
-    <label>Detalhes adicionais (opcional):</label>
-    <textarea name="detalhes" placeholder="Ex: Usar toga vermelha, adicionar nome completo, etc."></textarea>
-
-    <button type="submit">Enviar Pedido</button>
-  </form>
-
-  <p id="mensagem"></p>
-
-  <!-- Firebase SDKs e inicialização -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCRRJQDdI1_dbPJcKBUj7lQ9O44Jl4SbhY",
-      authDomain: "caricatura-ai.firebaseapp.com",
-      projectId: "caricatura-ai",
-      storageBucket: "caricatura-ai.appspot.com",
-      messagingSenderId: "1093120274330",
-      appId: "1:1093120274330:web:8bbca07918af6f48c45423",
-      measurementId: "G-H58BSKJV74"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
-
-    const form = document.getElementById('caricatureForm');
-    const mensagem = document.getElementById('mensagem');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      mensagem.textContent = "Enviando...";
-
-      const nome = form.nome.value;
-      const email = form.email.value;
-      const estilo = form.estilo.value;
-      const detalhes = form.detalhes.value;
-      const foto = form.foto.files[0];
-
-      if (!foto) {
-        mensagem.textContent = "Por favor, selecione uma imagem.";
-        return;
-      }
-
-      try {
-        // Upload da imagem
-        const storageRef = ref(storage, `caricaturas/${Date.now()}_${foto.name}`);
-        await uploadBytes(storageRef, foto);
-        const imageURL = await getDownloadURL(storageRef);
-
-        // Salvar os dados no Firestore
-        await addDoc(collection(db, "pedidos"), {
-          nome,
-          email,
-          estilo,
-          detalhes,
-          imageURL,
-          data: new Date()
-        });
-
-        mensagem.textContent = "Pedido enviado com sucesso! Em breve você receberá sua caricatura.";
-        form.reset();
-      } catch (err) {
-        console.error(err);
-        mensagem.textContent = "Erro ao enviar pedido. Tente novamente.";
-      }
-    });
-  </script>
-</body>
+    <!-- RODAPÉ -->
+    <footer class="text-center text-sm py-6 bg-gray-200">
+      © 2025 Caricatura AI. Todos os direitos reservados.
+    </footer>
+  </body>
 </html>
