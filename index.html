@@ -1,191 +1,111 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Caricatura AI - Transforme sua Foto em Arte</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
-      }
+<html lang="pt-BR">
 
-      body {
-        background-color: #f8f9fa;
-        color: #212529;
-        line-height: 1.6;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caricatura AI - Transforme sua Foto em Arte!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
 
-      header {
-        background-color: #111827;
-        color: #fff;
-        padding: 2rem;
-        text-align: center;
-      }
-
-      header h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-      }
-
-      header p {
-        font-size: 1.1rem;
-        opacity: 0.85;
-      }
-
-      .container {
-        max-width: 1000px;
-        margin: 2rem auto;
-        padding: 1rem;
-      }
-
-      .steps {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 1.5rem;
-        margin-bottom: 3rem;
-      }
-
-      .step {
-        background: white;
-        border-radius: 1rem;
-        padding: 1.5rem;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      }
-
-      .step img {
-        width: 60px;
-        margin-bottom: 1rem;
-      }
-
-      .form-container {
-        background: white;
-        padding: 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      }
-
-      .form-group {
-        margin-bottom: 1rem;
-      }
-
-      label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-      }
-
-      input,
-      select,
-      textarea {
-        width: 100%;
-        padding: 0.8rem;
-        border: 1px solid #ccc;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-      }
-
-      button {
-        background-color: #111827;
-        color: white;
-        border: none;
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-        border-radius: 0.5rem;
-        cursor: pointer;
-      }
-
-      .preview-img {
-        max-width: 100%;
-        height: auto;
-        margin-top: 1rem;
-        border-radius: 0.5rem;
-      }
-
-      @media (max-width: 768px) {
-        .steps {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Caricatura AI</h1>
-      <p>Transforme sua foto em uma caricatura divertida com inteligência artificial!</p>
-    </header>
-
-    <div class="container">
-      <section class="steps">
-        <div class="step">
-          <img src="https://img.icons8.com/ios-filled/100/000000/upload.png" />
-          <h3>1. Envie sua Foto</h3>
-          <p>Escolha uma imagem com boa qualidade e boa iluminação.</p>
-        </div>
-        <div class="step">
-          <img src="https://img.icons8.com/ios-filled/100/000000/magic.png" />
-          <h3>2. Personalize</h3>
-          <p>Escolha o estilo, cor de fundo e detalhes adicionais.</p>
-        </div>
-        <div class="step">
-          <img src="https://img.icons8.com/ios-filled/100/000000/checkmark.png" />
-          <h3>3. Receba sua Arte</h3>
-          <p>Receba a caricatura finalizada por e-mail em até 24 horas.</p>
-        </div>
-      </section>
-
-      <section class="form-container">
-        <h2>Formulário de Pedido</h2>
-        <form id="caricatureForm">
-          <div class="form-group">
-            <label for="name">Nome completo</label>
-            <input type="text" id="name" name="name" required />
-          </div>
-
-          <div class="form-group">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required />
-          </div>
-
-          <div class="form-group">
-            <label for="style">Estilo da Caricatura</label>
-            <select id="style" name="style" required>
-              <option value="tradicional">Tradicional</option>
-              <option value="anime">Anime</option>
-              <option value="cartoon">Cartoon</option>
-              <option value="realista">Realista</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="background">Fundo desejado</label>
-            <input type="text" id="background" name="background" placeholder="Ex: Praia, festa de formatura..." />
-          </div>
-
-          <div class="form-group">
-            <label for="details">Observações ou pedidos especiais</label>
-            <textarea id="details" name="details" rows="4"></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="photo">Envie sua foto</label>
-            <input type="file" id="photo" name="photo" accept="image/*" required />
-          </div>
-
-          <button type="submit">Enviar Pedido</button>
-        </form>
-      </section>
+<body class="bg-white text-gray-800">
+  <!-- Header -->
+  <header class="bg-purple-700 text-white py-6 shadow">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center">
+      <h1 class="text-2xl font-extrabold">🎨 Caricatura AI</h1>
+      <p class="text-sm sm:text-base mt-2 sm:mt-0">Transforme sua foto em uma caricatura divertida com inteligência artificial!</p>
     </div>
+  </header>
 
-    <script>
-      document.getElementById('caricatureForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        alert('Formulário enviado com sucesso! (Em breve conectaremos com o Cloudinary)');
-      });
-    </script>
-  </body>
+  <!-- Hero Section -->
+  <section class="bg-purple-100 py-12">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Envie sua foto, escolha o estilo e receba sua caricatura personalizada!</h2>
+      <p class="text-lg mb-6 text-gray-700">Ideal para formaturas, presentes criativos, eventos ou apenas por diversão!</p>
+      <a href="#formulario" class="bg-purple-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-800 transition">Quero minha caricatura</a>
+    </div>
+  </section>
+
+  <!-- Como Funciona -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <h3 class="text-2xl font-bold text-center mb-10">Como funciona?</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+        <div>
+          <img src="https://img.icons8.com/clouds/100/upload.png" class="mx-auto mb-4" alt="Envie sua Foto">
+          <h4 class="font-semibold text-lg">1. Envie sua foto</h4>
+          <p class="text-sm text-gray-600">Escolha uma imagem nítida e de boa qualidade para garantir o melhor resultado.</p>
+        </div>
+        <div>
+          <img src="https://img.icons8.com/clouds/100/brain.png" class="mx-auto mb-4" alt="IA Processa">
+          <h4 class="font-semibold text-lg">2. Inteligência artificial transforma</h4>
+          <p class="text-sm text-gray-600">Usamos IA avançada para gerar sua caricatura em poucos minutos.</p>
+        </div>
+        <div>
+          <img src="https://img.icons8.com/clouds/100/ok.png" class="mx-auto mb-4" alt="Receba">
+          <h4 class="font-semibold text-lg">3. Você recebe a arte final</h4>
+          <p class="text-sm text-gray-600">Receba sua caricatura direto no e-mail ou WhatsApp com alta qualidade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulário -->
+  <section id="formulario" class="py-16 bg-purple-50">
+    <div class="max-w-xl mx-auto px-4">
+      <h3 class="text-2xl font-bold mb-8 text-center">Preencha o formulário</h3>
+      <form class="space-y-6" action="#">
+        <div>
+          <label for="nome" class="block font-semibold mb-1">Seu Nome</label>
+          <input type="text" id="nome" name="nome" required class="w-full p-3 border rounded" placeholder="Ex: Maria Silva">
+        </div>
+
+        <div>
+          <label for="email" class="block font-semibold mb-1">E-mail</label>
+          <input type="email" id="email" name="email" required class="w-full p-3 border rounded" placeholder="Ex: maria@email.com">
+        </div>
+
+        <div>
+          <label for="whatsapp" class="block font-semibold mb-1">WhatsApp (opcional)</label>
+          <input type="text" id="whatsapp" name="whatsapp" class="w-full p-3 border rounded" placeholder="Ex: (11) 91234-5678">
+        </div>
+
+        <div>
+          <label class="block font-semibold mb-1">Estilo de caricatura</label>
+          <select class="w-full p-3 border rounded" name="estilo">
+            <option>Divertido</option>
+            <option>Estilo Realista</option>
+            <option>Formatura</option>
+            <option>Anime / Mangá</option>
+            <option>Cartoon / Infantil</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="referencia" class="block font-semibold mb-1">Deseja algo específico? (Cor de roupa, pose, cenário...)</label>
+          <textarea id="referencia" name="referencia" rows="4" class="w-full p-3 border rounded" placeholder="Descreva aqui se quiser algo personalizado"></textarea>
+        </div>
+
+        <div>
+          <label for="foto" class="block font-semibold mb-1">Envie sua Foto</label>
+          <input type="file" id="foto" name="foto" accept="image/*" class="w-full border p-2 rounded">
+        </div>
+
+        <button type="submit" class="w-full bg-purple-700 text-white py-3 rounded font-semibold hover:bg-purple-800 transition">Enviar Pedido</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="text-center py-8 bg-purple-700 text-white mt-12">
+    <p>&copy; 2025 Caricatura AI. Todos os direitos reservados.</p>
+  </footer>
+</body>
+
 </html>
