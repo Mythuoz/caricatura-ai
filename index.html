@@ -1,140 +1,201 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Caricatura AI - Personalize sua arte!</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background: #222;
-      color: #fff;
-      padding: 2rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-    }
-    h2 {
-      margin-top: 0;
-    }
-    label {
-      display: block;
-      margin: 1rem 0 0.5rem;
-      font-weight: 600;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.6rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-    button {
-      background: #ff7a00;
-      border: none;
-      color: white;
-      padding: 1rem 2rem;
-      font-size: 1rem;
-      margin-top: 1.5rem;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #e96f00;
-    }
-    .gallery {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-    .gallery img {
-      width: 100%;
-      max-width: 280px;
-      border-radius: 8px;
-      box-shadow: 0 0 6px rgba(0,0,0,0.1);
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #eee;
-      font-size: 0.9rem;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>🎨 Caricatura AI</h1>
-    <p>Transforme sua foto em uma caricatura única com inteligência artificial</p>
-  </header>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Caricatura AI - Crie sua arte personalizada</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
-  <div class="container">
-    <h2>Veja alguns exemplos:</h2>
-    <div class="gallery">
-      <img src="https://s3-sa-east-1.amazonaws.com/loja2/ee1a5d64d11b621fe5c1919b055de7ae.png" alt="Exemplo Caricatura">
-      <img src="https://placehold.co/280x280?text=Caricatura+2" alt="Exemplo 2">
-      <img src="https://placehold.co/280x280?text=Caricatura+3" alt="Exemplo 3">
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f9f9f9;
+        color: #333;
+      }
+
+      header {
+        background: #4a00e0;
+        background: linear-gradient(to right, #8e2de2, #4a00e0);
+        color: white;
+        padding: 2rem 1rem;
+        text-align: center;
+      }
+
+      header h1 {
+        margin: 0 0 1rem;
+        font-size: 2.5rem;
+      }
+
+      header p {
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 3rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      }
+
+      h2 {
+        color: #4a00e0;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input, select, textarea {
+        padding: 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      button {
+        background-color: #4a00e0;
+        color: white;
+        padding: 1rem;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background-color: #5c2ed6;
+      }
+
+      .preview-img {
+        margin-top: 1rem;
+        max-width: 100%;
+        border-radius: 12px;
+        display: none;
+      }
+
+      .examples {
+        text-align: center;
+        margin: 4rem 0 2rem;
+      }
+
+      .examples img {
+        width: 150px;
+        margin: 0.5rem;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Caricatura AI</h1>
+      <p>Transforme sua foto em uma caricatura única para formaturas, presentes, eventos ou redes sociais!</p>
+    </header>
+
+    <div class="container">
+      <h2>Solicite sua Caricatura</h2>
+      <form id="caricatureForm">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" required />
+
+        <label for="email">Email para entrega</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="estilo">Estilo da caricatura</label>
+        <select id="estilo" name="estilo" required>
+          <option value="">Selecione</option>
+          <option value="formatura">Formatura</option>
+          <option value="casual">Casual</option>
+          <option value="super-herói">Super-Herói</option>
+          <option value="anime">Estilo Anime</option>
+          <option value="outro">Outro</option>
+        </select>
+
+        <label for="detalhes">Observações ou preferências</label>
+        <textarea id="detalhes" name="detalhes" rows="4" placeholder="Ex: quero com beca azul, segurando diploma, com fundo da minha faculdade..."></textarea>
+
+        <label for="imagem">Envie sua foto</label>
+        <input type="file" id="imagem" name="imagem" accept="image/*" required />
+        <img id="preview" class="preview-img" src="" alt="Pré-visualização da imagem" />
+
+        <button type="submit">Enviar Pedido</button>
+      </form>
     </div>
 
-    <h2>Personalize seu pedido:</h2>
-    <form id="form-caricatura">
-      <label for="nome">Nome completo</label>
-      <input type="text" id="nome" name="nome" required />
+    <div class="examples">
+      <h2>Exemplos de Caricaturas</h2>
+      <img src="https://s3-sa-east-1.amazonaws.com/loja2/ee1a5d64d11b621fe5c1919b055de7ae.png" alt="Exemplo 1" />
+      <img src="https://i.imgur.com/UNzB4sM.png" alt="Exemplo 2" />
+      <img src="https://i.imgur.com/yfNQ9Zh.png" alt="Exemplo 3" />
+    </div>
 
-      <label for="email">E-mail para entrega</label>
-      <input type="email" id="email" name="email" required />
+    <script>
+      const form = document.getElementById("caricatureForm");
+      const imagemInput = document.getElementById("imagem");
+      const preview = document.getElementById("preview");
 
-      <label for="estilo">Estilo da caricatura</label>
-      <select id="estilo" name="estilo">
-        <option>Cartoon divertido</option>
-        <option>Estilo mangá</option>
-        <option>Realista com fundo criativo</option>
-        <option>Minimalista</option>
-      </select>
+      imagemInput.addEventListener("change", () => {
+        const file = imagemInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+          };
+          reader.readAsDataURL(file);
+        }
+      });
 
-      <label for="fundo">Deseja fundo personalizado?</label>
-      <select id="fundo" name="fundo">
-        <option>Sim, envie uma descrição</option>
-        <option>Não, quero fundo branco</option>
-        <option>Surpreenda-me!</option>
-      </select>
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-      <label for="descricao">Descrição adicional (roupas, cenário, acessórios, etc.)</label>
-      <textarea id="descricao" name="descricao" rows="4" placeholder="Ex: Roupa de formatura, com óculos, em um palco de premiação..."></textarea>
+        const cloudName = "mythuoz";
+        const uploadPreset = "caricatura_upload";
 
-      <label for="foto">Envie sua foto</label>
-      <input type="file" id="foto" name="foto" accept=\"image/*\" />
+        const file = imagemInput.files[0];
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", uploadPreset);
 
-      <button type="submit">Enviar Pedido</button>
-    </form>
-  </div>
+        const uploadResponse = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+          method: "POST",
+          body: formData,
+        });
 
-  <footer>
-    &copy; 2025 Caricatura AI - Todos os direitos reservados
-  </footer>
+        const uploadResult = await uploadResponse.json();
+        const imageUrl = uploadResult.secure_url;
 
-  <script>
-    // Este script será alterado em breve para enviar a imagem ao Cloudinary
-    document.getElementById('form-caricatura').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Seu pedido foi recebido! Em breve você receberá um e-mail com a caricatura.');
-    });
-  </script>
-</body>
+        const dadosPedido = {
+          nome: form.nome.value,
+          email: form.email.value,
+          estilo: form.estilo.value,
+          detalhes: form.detalhes.value,
+          imagem: imageUrl,
+        };
+
+        console.log("Pedido recebido:", dadosPedido);
+        alert("Seu pedido foi enviado com sucesso! Em breve entraremos em contato por e-mail.");
+
+        form.reset();
+        preview.style.display = "none";
+      });
+    </script>
+  </body>
 </html>
