@@ -1,143 +1,96 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Caricatura AI - Crie Sua Caricatura Personalizada</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-    .gallery {
-      display: flex;
-      justify-content: space-between;
-      margin: 30px 0;
-    }
-    .gallery img {
-      width: 30%;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    form {
-      background-color: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    label {
-      display: block;
-      margin: 12px 0 5px;
-      font-weight: 600;
-    }
-    input, select, textarea, button {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      margin-bottom: 10px;
-      font-family: inherit;
-      font-size: 1rem;
-    }
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>🎨 Caricatura AI</h1>
-    <p style="text-align:center">Crie sua caricatura personalizada com inteligência artificial. Envie sua foto e nos diga o que deseja — nós cuidamos do resto!</p>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caricatura AI - Personalize sua Arte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 text-gray-800 font-sans">
+    <header class="bg-white shadow p-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl font-bold text-purple-600">Caricatura AI</h1>
+        <p class="mt-2 text-lg text-gray-600">
+          Transforme sua foto em uma caricatura personalizada com inteligência artificial.
+        </p>
+      </div>
+    </header>
 
-    <div class="gallery">
-      <img src="https://s3-sa-east-1.amazonaws.com/loja2/ee1a5d64d11b621fe5c1919b055de7ae.png" alt="Exemplo 1">
-      <img src="https://img.photolamus.com/sdS6MHtK/600x600/c/m/6fc79f58fa84a47c65c02bad10a789a6/caricatura-engracada-e-exagerada-de-presente-de-formatura-600-x-600.jpeg" alt="Exemplo 2">
-      <img src="https://cdn.awsli.com.br/400x400/100/100184/produto/142677445/f181779bb1.jpg" alt="Exemplo 3">
-    </div>
+    <main class="max-w-3xl mx-auto mt-10 p-4">
+      <form id="caricatureForm" class="bg-white shadow-md rounded-xl p-6 space-y-6">
+        <h2 class="text-2xl font-semibold text-purple-600">Solicite sua caricatura</h2>
 
-    <h2>Formulário de Pedido</h2>
-    <form id="caricature-form">
-      <label>Nome:</label>
-      <input type="text" name="nome" required>
+        <div>
+          <label class="block font-medium mb-1">Nome completo</label>
+          <input type="text" name="nome" required class="w-full border border-gray-300 p-2 rounded-md" />
+        </div>
 
-      <label>Email:</label>
-      <input type="email" name="email" required>
+        <div>
+          <label class="block font-medium mb-1">Email para envio</label>
+          <input type="email" name="email" required class="w-full border border-gray-300 p-2 rounded-md" />
+        </div>
 
-      <label>Estilo da Caricatura:</label>
-      <select name="estilo" required>
-        <option value="realista">Realista</option>
-        <option value="cartoon">Cartoon</option>
-        <option value="manga">Mangá</option>
-      </select>
+        <div>
+          <label class="block font-medium mb-1">Estilo desejado</label>
+          <select name="estilo" class="w-full border border-gray-300 p-2 rounded-md">
+            <option value="engraçado">Engraçado e exagerado</option>
+            <option value="realista">Mais realista</option>
+            <option value="fofo">Fofo / Kawaii</option>
+            <option value="outro">Outro (especifique)</option>
+          </select>
+        </div>
 
-      <label>Tema ou Contexto:</label>
-      <input type="text" name="tema" placeholder="Ex: Formatura, Super-Herói, Profissão">
+        <div>
+          <label class="block font-medium mb-1">Tema ou ocasião</label>
+          <input
+            type="text"
+            name="tema"
+            placeholder="Formatura, aniversário, profissão, etc."
+            class="w-full border border-gray-300 p-2 rounded-md"
+          />
+        </div>
 
-      <label>Cores Preferidas:</label>
-      <input type="text" name="cores" placeholder="Ex: Azul, Preto e Branco">
+        <div>
+          <label class="block font-medium mb-1">Informações adicionais</label>
+          <textarea
+            name="descricao"
+            rows="4"
+            placeholder="Descreva roupas, fundo, pose, objetos, etc."
+            class="w-full border border-gray-300 p-2 rounded-md"
+          ></textarea>
+        </div>
 
-      <label>Tipo de Caricatura:</label>
-      <select name="tipo">
-        <option value="rosto">Somente o rosto</option>
-        <option value="corpo_inteiro">Corpo inteiro</option>
-      </select>
+        <div>
+          <label class="block font-medium mb-1">Envie sua foto</label>
+          <input
+            type="file"
+            name="imagem"
+            accept="image/*"
+            required
+            class="w-full border border-gray-300 p-2 rounded-md"
+          />
+        </div>
 
-      <label>Texto Personalizado na Imagem:</label>
-      <input type="text" name="texto" placeholder="Ex: João - Formando 2025">
+        <button
+          type="submit"
+          class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition"
+        >
+          Enviar pedido
+        </button>
+      </form>
 
-      <label>Foto:</label>
-      <button type="button" id="upload_widget">Enviar Foto</button>
-      <input type="hidden" id="photo_url" name="photo_url">
+      <section class="mt-16">
+        <h3 class="text-xl font-semibold mb-4 text-center text-purple-600">Exemplos de caricaturas</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <img src="https://s3-sa-east-1.amazonaws.com/loja2/ee1a5d64d11b621fe5c1919b055de7ae.png" class="rounded-lg shadow" />
+          <img src="https://img.photolamus.com/sdS6MHtK/600x600/c/m/6fc79f58fa84a47c65c02bad10a789a6/caricatura-engracada-e-exagerada-de-presente-de-formatura-600-x-600.jpeg" class="rounded-lg shadow" />
+          <img src="https://cdn.awsli.com.br/400x400/100/100184/produto/142677445/f181779bb1.jpg" class="rounded-lg shadow" />
+        </div>
+      </section>
+    </main>
 
-      <label>Observações adicionais:</label>
-      <textarea name="observacoes" rows="4" placeholder="Ex: Desejo um fundo com balões e confetes."></textarea>
-
-      <button type="submit">Enviar Pedido</button>
-    </form>
-  </div>
-
-  <script>
-    const cloudName = 'SEU_CLOUD_NAME'; // Substitua pelo seu cloud name
-    const uploadPreset = 'SEU_UPLOAD_PRESET'; // Substitua pelo seu upload preset
-
-    const uploadWidget = cloudinary.createUploadWidget({
-      cloudName: cloudName,
-      uploadPreset: uploadPreset
-    }, (error, result) => {
-      if (!error && result && result.event === "success") {
-        document.getElementById("photo_url").value = result.info.secure_url;
-        alert("Foto enviada com sucesso!");
-      }
-    });
-
-    document.getElementById("upload_widget").addEventListener("click", function() {
-      uploadWidget.open();
-    }, false);
-
-    document.getElementById("caricature-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("Formulário enviado! Os dados serão processados.");
-      // Aqui você pode integrar com backend ou serviço externo
-    });
-  </script>
-</body>
+    <footer class="text-center text-sm text-gray-500 py-6 mt-10">
+      © 2025 Caricatura AI - Todos os direitos reservados.
+    </footer>
+  </body>
 </html>
