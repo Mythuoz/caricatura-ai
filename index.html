@@ -1,201 +1,143 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Caricatura AI - Crie sua arte personalizada</title>
-    <style>
-      * {
-        box-sizing: border-box;
-      }
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caricatura AI - Crie Sua Caricatura Personalizada</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .gallery {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+    }
+    .gallery img {
+      width: 30%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    form {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    label {
+      display: block;
+      margin: 12px 0 5px;
+      font-weight: 600;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Caricatura AI</h1>
+    <p style="text-align:center">Crie sua caricatura personalizada com inteligência artificial. Envie sua foto e nos diga o que deseja — nós cuidamos do resto!</p>
 
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f9f9f9;
-        color: #333;
-      }
-
-      header {
-        background: #4a00e0;
-        background: linear-gradient(to right, #8e2de2, #4a00e0);
-        color: white;
-        padding: 2rem 1rem;
-        text-align: center;
-      }
-
-      header h1 {
-        margin: 0 0 1rem;
-        font-size: 2.5rem;
-      }
-
-      header p {
-        font-size: 1.1rem;
-        max-width: 700px;
-        margin: 0 auto;
-      }
-
-      .container {
-        max-width: 800px;
-        margin: 3rem auto;
-        padding: 2rem;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      }
-
-      h2 {
-        color: #4a00e0;
-        text-align: center;
-        margin-bottom: 2rem;
-      }
-
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      label {
-        font-weight: bold;
-      }
-
-      input, select, textarea {
-        padding: 0.8rem;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 1rem;
-      }
-
-      button {
-        background-color: #4a00e0;
-        color: white;
-        padding: 1rem;
-        font-size: 1.1rem;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      button:hover {
-        background-color: #5c2ed6;
-      }
-
-      .preview-img {
-        margin-top: 1rem;
-        max-width: 100%;
-        border-radius: 12px;
-        display: none;
-      }
-
-      .examples {
-        text-align: center;
-        margin: 4rem 0 2rem;
-      }
-
-      .examples img {
-        width: 150px;
-        margin: 0.5rem;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Caricatura AI</h1>
-      <p>Transforme sua foto em uma caricatura única para formaturas, presentes, eventos ou redes sociais!</p>
-    </header>
-
-    <div class="container">
-      <h2>Solicite sua Caricatura</h2>
-      <form id="caricatureForm">
-        <label for="nome">Nome completo</label>
-        <input type="text" id="nome" name="nome" required />
-
-        <label for="email">Email para entrega</label>
-        <input type="email" id="email" name="email" required />
-
-        <label for="estilo">Estilo da caricatura</label>
-        <select id="estilo" name="estilo" required>
-          <option value="">Selecione</option>
-          <option value="formatura">Formatura</option>
-          <option value="casual">Casual</option>
-          <option value="super-herói">Super-Herói</option>
-          <option value="anime">Estilo Anime</option>
-          <option value="outro">Outro</option>
-        </select>
-
-        <label for="detalhes">Observações ou preferências</label>
-        <textarea id="detalhes" name="detalhes" rows="4" placeholder="Ex: quero com beca azul, segurando diploma, com fundo da minha faculdade..."></textarea>
-
-        <label for="imagem">Envie sua foto</label>
-        <input type="file" id="imagem" name="imagem" accept="image/*" required />
-        <img id="preview" class="preview-img" src="" alt="Pré-visualização da imagem" />
-
-        <button type="submit">Enviar Pedido</button>
-      </form>
+    <div class="gallery">
+      <img src="https://s3-sa-east-1.amazonaws.com/loja2/ee1a5d64d11b621fe5c1919b055de7ae.png" alt="Exemplo 1">
+      <img src="https://img.photolamus.com/sdS6MHtK/600x600/c/m/6fc79f58fa84a47c65c02bad10a789a6/caricatura-engracada-e-exagerada-de-presente-de-formatura-600-x-600.jpeg" alt="Exemplo 2">
+      <img src="https://cdn.awsli.com.br/400x400/100/100184/produto/142677445/f181779bb1.jpg" alt="Exemplo 3">
     </div>
 
-    <div class="examples">
-      <h2>Exemplos de Caricaturas</h2>
-      <img src="https://s3-sa-east-1.amazonaws.com/loja2/ee1a5d64d11b621fe5c1919b055de7ae.png" alt="Exemplo 1" />
-      <img src="https://i.imgur.com/UNzB4sM.png" alt="Exemplo 2" />
-      <img src="https://i.imgur.com/yfNQ9Zh.png" alt="Exemplo 3" />
-    </div>
+    <h2>Formulário de Pedido</h2>
+    <form id="caricature-form">
+      <label>Nome:</label>
+      <input type="text" name="nome" required>
 
-    <script>
-      const form = document.getElementById("caricatureForm");
-      const imagemInput = document.getElementById("imagem");
-      const preview = document.getElementById("preview");
+      <label>Email:</label>
+      <input type="email" name="email" required>
 
-      imagemInput.addEventListener("change", () => {
-        const file = imagemInput.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            preview.src = e.target.result;
-            preview.style.display = "block";
-          };
-          reader.readAsDataURL(file);
-        }
-      });
+      <label>Estilo da Caricatura:</label>
+      <select name="estilo" required>
+        <option value="realista">Realista</option>
+        <option value="cartoon">Cartoon</option>
+        <option value="manga">Mangá</option>
+      </select>
 
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+      <label>Tema ou Contexto:</label>
+      <input type="text" name="tema" placeholder="Ex: Formatura, Super-Herói, Profissão">
 
-        const cloudName = "mythuoz";
-        const uploadPreset = "caricatura_upload";
+      <label>Cores Preferidas:</label>
+      <input type="text" name="cores" placeholder="Ex: Azul, Preto e Branco">
 
-        const file = imagemInput.files[0];
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", uploadPreset);
+      <label>Tipo de Caricatura:</label>
+      <select name="tipo">
+        <option value="rosto">Somente o rosto</option>
+        <option value="corpo_inteiro">Corpo inteiro</option>
+      </select>
 
-        const uploadResponse = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-          method: "POST",
-          body: formData,
-        });
+      <label>Texto Personalizado na Imagem:</label>
+      <input type="text" name="texto" placeholder="Ex: João - Formando 2025">
 
-        const uploadResult = await uploadResponse.json();
-        const imageUrl = uploadResult.secure_url;
+      <label>Foto:</label>
+      <button type="button" id="upload_widget">Enviar Foto</button>
+      <input type="hidden" id="photo_url" name="photo_url">
 
-        const dadosPedido = {
-          nome: form.nome.value,
-          email: form.email.value,
-          estilo: form.estilo.value,
-          detalhes: form.detalhes.value,
-          imagem: imageUrl,
-        };
+      <label>Observações adicionais:</label>
+      <textarea name="observacoes" rows="4" placeholder="Ex: Desejo um fundo com balões e confetes."></textarea>
 
-        console.log("Pedido recebido:", dadosPedido);
-        alert("Seu pedido foi enviado com sucesso! Em breve entraremos em contato por e-mail.");
+      <button type="submit">Enviar Pedido</button>
+    </form>
+  </div>
 
-        form.reset();
-        preview.style.display = "none";
-      });
-    </script>
-  </body>
+  <script>
+    const cloudName = 'SEU_CLOUD_NAME'; // Substitua pelo seu cloud name
+    const uploadPreset = 'SEU_UPLOAD_PRESET'; // Substitua pelo seu upload preset
+
+    const uploadWidget = cloudinary.createUploadWidget({
+      cloudName: cloudName,
+      uploadPreset: uploadPreset
+    }, (error, result) => {
+      if (!error && result && result.event === "success") {
+        document.getElementById("photo_url").value = result.info.secure_url;
+        alert("Foto enviada com sucesso!");
+      }
+    });
+
+    document.getElementById("upload_widget").addEventListener("click", function() {
+      uploadWidget.open();
+    }, false);
+
+    document.getElementById("caricature-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Formulário enviado! Os dados serão processados.");
+      // Aqui você pode integrar com backend ou serviço externo
+    });
+  </script>
+</body>
 </html>
