@@ -110,29 +110,56 @@
   </footer>
 
   <script>
-    const cloudName = 'dovreecdc';
-    const uploadPreset = 'caricatura_ai'; // Substitua pelo seu preset correto
+  const cloudName = 'dovreecdc';
+  const uploadPreset = 'caricatura_ai';
 
-    const uploadWidget = cloudinary.createUploadWidget({
-      cloudName: cloudName,
-      uploadPreset: uploadPreset
-    }, (error, result) => {
-      if (!error && result && result.event === "success") {
-        document.getElementById("photo_url").value = result.info.secure_url;
-        alert("Foto enviada com sucesso!");
-      }
-    });
+  const uploadButton = document.getElementById("upload_widget");
+  const photoInput = document.getElementById("photo_url");
 
-    document.getElementById("upload_widget").addEventListener("click", function () {
-      uploadWidget.open();
-    }, false);
+  const uploadWidget = cloudinary.createUploadWidget({
+    cloudName: cloudName,
+    uploadPreset: uploadPreset,
+    sources: ['local', 'url', 'camera'],
+    multiple: false,
+    cropping: false,
+    folder: 'caricaturas', // opcional: organiza uploads em pasta
+    maxFileSize: 5000000,  // 5MB
+    clientAllowedFormats: ['jpg', 'png', 'jpeg', 'webp']
+  }, (error, result) => {
+    if (!error && result && result.event === "success") {
+      photoInput.value = result.info.secure_url;
+      uploadButton.textContent = "✅ Foto enviada com sucesso!";
+      uploadButton.disabled = false;
+      uploadButton.classList.remove("bg-purple-300");
+      uploadButton.classList.add("bg-green-600", "hover:bg-green-700");
+    } else if (error) {
+      alert("Erro no upload: " + error.message);
+      uploadButton.disabled = false;
+      uploadButton.textContent = "Selecionar Imagem";
+    }
+  });
 
-    document.getElementById("caricature-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("Formulário enviado com sucesso! Verifique sua foto e dados.");
-      // Aqui você pode adicionar envio via API ou backend
-    });
-  </script>
+  uploadButton.addEventListener("click", function () {
+    uploadButton.disabled = true;
+    uploadButton.textContent = "Enviando...";
+    uploadButton.classList.add("bg-purple-300");
+    uploadWidget.open();
+  }, false);
+
+  document.getElementById("caricature-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const url = photoInput.value;
+    if (!url) {
+      alert("Por favor, envie uma foto antes de enviar o formulário.");
+      return;
+    }
+
+    alert("Formulário enviado com sucesso! Verifique sua foto e dados.");
+    // Aqui você poderá adicionar integração com backend, Google Sheets ou API de e-mail
+  });
+</script>
+
 </body>
 
 </html>
