@@ -9,9 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
+    body { font-family: 'Inter', sans-serif; }
   </style>
 </head>
 
@@ -110,56 +108,63 @@
   </footer>
 
   <script>
-  const cloudName = 'dovreecdc';
-  const uploadPreset = 'caricatura_ai';
+    // === 1) CLOUDINARY (upload da foto) ===
+    const cloudName = 'dovreecdc';
+    const uploadPreset = 'caricatura_ai';
 
-  const uploadButton = document.getElementById("upload_widget");
-  const photoInput = document.getElementById("photo_url");
+    const uploadWidget = cloudinary.createUploadWidget({
+      cloudName: cloudName,
+      uploadPreset: uploadPreset
+    }, (error, result) => {
+      if (!error && result && result.event === "success") {
+        document.getElementById("photo_url").value = result.info.secure_url;
+        alert("Foto enviada com sucesso!");
+      }
+    });
 
-  const uploadWidget = cloudinary.createUploadWidget({
-    cloudName: cloudName,
-    uploadPreset: uploadPreset,
-    sources: ['local', 'url', 'camera'],
-    multiple: false,
-    cropping: false,
-    folder: 'caricaturas', // opcional: organiza uploads em pasta
-    maxFileSize: 5000000,  // 5MB
-    clientAllowedFormats: ['jpg', 'png', 'jpeg', 'webp']
-  }, (error, result) => {
-    if (!error && result && result.event === "success") {
-      photoInput.value = result.info.secure_url;
-      uploadButton.textContent = "✅ Foto enviada com sucesso!";
-      uploadButton.disabled = false;
-      uploadButton.classList.remove("bg-purple-300");
-      uploadButton.classList.add("bg-green-600", "hover:bg-green-700");
-    } else if (error) {
-      alert("Erro no upload: " + error.message);
-      uploadButton.disabled = false;
-      uploadButton.textContent = "Selecionar Imagem";
-    }
-  });
+    document.getElementById("upload_widget").addEventListener("click", function () {
+      uploadWidget.open();
+    }, false);
 
-  uploadButton.addEventListener("click", function () {
-    uploadButton.disabled = true;
-    uploadButton.textContent = "Enviando...";
-    uploadButton.classList.add("bg-purple-300");
-    uploadWidget.open();
-  }, false);
+    // === 2) ENVIAR FORMULÁRIO PARA O MAKE (webhook) ===
+    const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/woebm17n8f2e95lqyhsefuung1foh64v";
 
-  document.getElementById("caricature-form").addEventListener("submit", function (e) {
-    e.preventDefault();
+    document.getElementById("caricature-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-    const url = photoInput.value;
-    if (!url) {
-      alert("Por favor, envie uma foto antes de enviar o formulário.");
-      return;
-    }
+      const data = {
+        nome: document.getElementById("nome").value,
+        email: document.getElementById("email").value,
+        whatsapp: document.getElementById("whatsapp").value,
+        estilo: document.querySelector("select[name='estilo']").value,
+        referencia: document.getElementById("referencia").value,
+        photo_url: document.getElementById("photo_url").value,
+        lang: "pt" // depois podemos virar um select
+      };
 
-    alert("Formulário enviado com sucesso! Verifique sua foto e dados.");
-    // Aqui você poderá adicionar integração com backend, Google Sheets ou API de e-mail
-  });
-</script>
+      if (!data.photo_url) {
+        alert("Envie uma foto antes de enviar o pedido.");
+        return;
+      }
 
+      try {
+        const res = await fetch(MAKE_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          alert("Pedido enviado! Vamos processar sua caricatura.");
+        } else {
+          alert("Erro ao enviar. Tente novamente em instantes.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Falha de conexão. Tente novamente.");
+      }
+    });
+  </script>
 </body>
 
 </html>
